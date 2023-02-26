@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Node, Edge } from '@swimlane/ngx-graph';
+import { nodes, links } from './data';
 import * as shape from 'd3-shape';
+import { transition } from 'd3-transition';
+import { select } from 'd3-selection';
+import * as d3Transition from 'd3-transition';
 
 @Component({
   selector: 'app-graph',
@@ -11,10 +15,26 @@ import * as shape from 'd3-shape';
 export class GraphComponent implements OnInit {
   nodes: Node[] = [];
   links: Edge[] = [];
+  // nodes: Node[] = nodes;
+  // links: Edge[] = links;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
+
+    this.feedNgxData();
+
+  }
+
+  ngOnChanges() {
+    // this.feedNgxData();
+  }
+
+  DisplayGraph() {
+    this.feedNgxData();
+  }
+
+  feedNgxData() {
     // Call the API to get the nodes and links data
     this.http.get('http://localhost:3000/api/nodes').subscribe((data: any) => {
       // Map the response data to Node objects
@@ -38,17 +58,47 @@ export class GraphComponent implements OnInit {
       });
     });
 
-    console.log(`Nodes data from API:\n${this.nodes}\n\nEdges data from API:\n${this.links}`)
+    console.log(`Nodes data from API:\n${JSON.stringify(this.nodes)}\n\nEdges data from API:\n${JSON.stringify(this.links)}`);
   }
 
   // USER GUI COMPONENT BELOW
-  node1: string="";
-  node2: string="";
-  relation: string="";
+  node1: string = "";
+  node2: string = "";
+  relation: string = "";
+  searchNodeName: string = "";
+
+  SearchNode() {
+    // const body = {
+    // name:this.searchNodeName
+    // };
+    this.http.get('http://localhost:3000/api/filteredNodes/' + this.searchNodeName).subscribe((data: any) => {
+      this.nodes = data.map((item: { id: any; label: any; }) => {
+        const response1 = {
+          id: item.id,
+          label: item.label
+        };
+        console.log(`filterNodesAPI response: \n ${JSON.stringify(response1)}`);
+        return response1;
+      });
+    });
+
+    this.http.get('http://localhost:3000/api/filteredEdges/' + this.searchNodeName).subscribe((data: any) => {
+      console.log(data);
+      this.links = data.map((item: { source: any; target: any; label: any;}) => {
+        const response2 = {
+          source: item.source,
+          target: item.target,
+          label: item.label,
+        };
+        console.log(`filterEdgesAPI response: \n ${JSON.stringify(response2)}`);
+        return response2;
+      });
+    });
+
+    console.log(`Nodes data from API:\n${JSON.stringify(this.nodes)}\n\nEdges data from API:\n${JSON.stringify(this.links)}`)
 
 
-
-  
+  }
 
   Add() {
     const body = {
@@ -63,5 +113,7 @@ export class GraphComponent implements OnInit {
       console.log(error);
     });
   }
+
+
 }
 
