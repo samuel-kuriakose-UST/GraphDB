@@ -5,6 +5,11 @@ import { NgxGraphModule } from '@swimlane/ngx-graph';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MatCardModule } from "@angular/material/card";
+import { MatButtonModule } from "@angular/material/button";
+import {MatDividerModule} from '@angular/material/divider';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 import { GraphComponent } from './graph/graph.component';
@@ -21,7 +26,12 @@ import { GraphComponent } from './graph/graph.component';
     NgxGraphModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatButtonToggleModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

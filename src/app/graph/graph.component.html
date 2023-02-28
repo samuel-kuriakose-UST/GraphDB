@@ -1,45 +1,60 @@
 <div class="container">
     <div class="left-column">
-        <div class="top-box">
-            <h2>Add New Nodes</h2>
-            <form>
-                <label for="textbox1">Node1 name:</label>
-                <input type="text" [(ngModel)]="node1" id="node1" name="node1"><br><br>
-
-                <label for="textbox2">Node2 name:</label>
-                <input type="text" [(ngModel)]="node2" id="node2" name="node2"><br><br>
-
-                <label for="textbox3">Relationship:</label>
-                <input type="text" [(ngModel)]="relation" id="relation" name="relation"><br><br>
-
-                <button (click)="Add()" type="submit">Add</button> <button (click)="DisplayGraph()" type="submit">Update Graph</button>
+        <mat-card>
 
 
-            </form>
+            <div class="top-box">
+                <h2>Add New Nodes</h2>
+                <form>
+                    <label class="textbox-label" for="textbox1">Node1 name:</label>
+                    <input type="text" [(ngModel)]="node1" id="node1" name="node1"><br><br>
 
-        </div>
+                    <label class="textbox-label" for="textbox2">Node2 name:</label>
+                    <input type="text" [(ngModel)]="node2" id="node2" name="node2"><br><br>
 
-        <div class="bottom-box">
+                    <label class="textbox-label" for="textbox3">Relationship:</label>
+                    <input type="text" [(ngModel)]="relation" id="relation" name="relation"><br><br>
 
-            <h2>Search Node</h2>
-            <form>
-                <label for="textbox4">Enter node name:</label>
-                <input type="text" [(ngModel)]="searchNodeName" id="searchNodeName" name="searchNodeName"><br><br>
-                <!-- <input type="text" id="searchNode" name="searchNode"><br><br> -->
-                <button (click)="SearchNode()" type="submit">Search</button>
-            </form>
-        </div>
 
+                    <!-- <button class="button" (click)="Add()" type="submit">Add</button>
+                    <button class="button" style="margin-left: 20px;" (click)="DisplayGraph()" type="submit"></button> -->
+
+                    <mat-button-toggle-group>
+                        <mat-button-toggle class="enlarge" (click)="Add()" type="submit">
+                          Add
+                        </mat-button-toggle>
+                        <mat-button-toggle style="margin-left: 20px;" class="enlarge"  (click)="DisplayGraph()" type="submit">Refresh Graph</mat-button-toggle>
+                      </mat-button-toggle-group>
+                </form>
+            </div><br> <br>
+
+
+
+            <mat-divider></mat-divider>
+            <div class="bottom-box">
+
+                <h2>Search Node</h2>
+                <form>
+                    <label for="textbox4">Enter node name:</label>
+                    <input type="text" [(ngModel)]="searchNodeName" id="searchNodeName" name="searchNodeName"><br><br>
+                    <!-- <input type="text" id="searchNode" name="searchNode"><br><br> -->
+                    <!-- <button class="button" (click)="SearchNode()" type="submit">Search</button> -->
+                    <mat-button-toggle class="enlarge" (click)="SearchNode()" type="submit">
+                        Search
+                      </mat-button-toggle>
+                </form>
+            </div>
+        </mat-card>
     </div>
     <div class="right-column">
         <!-- <ngx-graph [view]="[800, 600]" [nodes]="nodes" [links]="links" [autoZoom]="true" [autoCenter]="true"> -->
-        <h2 id="center">Graph Modelling</h2>
+        <h2 id="center">GRAPH MODELLING</h2>
         <ngx-graph [nodes]="nodes" [links]="links" [autoZoom]="true" [autoCenter]="true" [showMiniMap]="true">
 
             <ng-template #nodeTemplate let-node>
                 <svg:g class="node">
                     <svg:rect [attr.width]="node.dimension.width" [attr.height]="node.dimension.height"
-                        [attr.fill]="node.data.color" fill-opacity="50%"/>
+                        [attr.fill]="node.data.color" fill-opacity="80%" />
                     <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.dimension.height / 2">
                         {{node.label}}
                     </svg:text>
@@ -62,18 +77,18 @@
 
         -->
 
-        <ng-template #linkTemplate let-link>
-            <svg:g class="edge">
-                <svg:path class="line" stroke-width="2" marker-end="url(#arrow)">
-                </svg:path>
-                <svg:text class="edge-label" text-anchor="middle">
-                    <textPath class="text-path" [attr.href]="'#' + link.id"
-                        [style.dominant-baseline]="link.dominantBaseline" startOffset="50%">
-                        {{link.label}}
-                    </textPath>
-                </svg:text>
-            </svg:g>
-        </ng-template> 
+            <ng-template #linkTemplate let-link>
+                <svg:g class="edge">
+                    <svg:path class="line" stroke-width="2" marker-end="url(#arrow)">
+                    </svg:path>
+                    <svg:text class="edge-label" text-anchor="middle">
+                        <textPath class="text-path" [attr.href]="'#' + link.id"
+                            [style.dominant-baseline]="link.dominantBaseline" startOffset="50%">
+                            {{link.label}}
+                        </textPath>
+                    </svg:text>
+                </svg:g>
+            </ng-template>
 
 
         </ngx-graph>

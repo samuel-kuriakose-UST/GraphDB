@@ -1,28 +1,71 @@
 .container {
     display: flex;
     flex-direction: row;
-    width:fit-content;
-    height: fit-content;
+    width:auto;
+    height:auto;
+    background-image: url('https://www.whiteheadassoc.com/wp-content/uploads/2018/09/iStock-998993038.jpg');
+    background-size: contain; 
   }
   
   .left-column {
-    flex-basis: 20%;
-    background-color: lightgray;
+    flex-basis: 30%;
+    /* background-color: rgb(0, 0, 0); */
     padding: 20px;
   }
   
   .right-column {
-    flex-basis: 80%;
-    background-color: white;
+    flex-basis: 70%;
+    /* background-color: white; */
+    /* background-image: url('https://static.vecteezy.com/system/resources/thumbnails/004/827/519/original/technology-plexus-network-background-free-video.jpg'); */
+
+    /* background-image: url('https://www.whiteheadassoc.com/wp-content/uploads/2018/09/iStock-998993038.jpg');
+    background-size: cover;  */
+    /* background-position: center;  */
     padding: 20px;
   }
 
-  #center {
+  .example-card {
+    max-width: 400px;
+  }
 
+  .enlarge {
+    color: white;
+    background-color: rgb(96, 191, 195);
+    transition: all 0.2s ease-in-out;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .enlarge:hover {
+    transform: scale(1.2);
+  }
+
+  /* .text-path{
+    background-color: aliceblue;
+    color:white;
+  } */
+
+  /* .button{
+    background-color: rgb(158, 164, 165);
+    padding: 5px;
+  } */
+
+  #center {
     text-align: center;
+    margin-right: 300px;
     
     }
 
-  h2 { font-family: Arial; }
+  h2 { 
+    font-family: Arial;
+    color: aliceblue; 
+  }
 
-  label { font-family: Arial;}
+  label {
+    font-family: Arial;
+    font-weight: bold;
+    /* color: rgb(255, 255, 255); */
+  }
+
+  input{
+    background-color: rgb(228, 231, 239);
+  }
