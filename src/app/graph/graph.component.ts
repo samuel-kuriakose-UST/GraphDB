@@ -14,6 +14,7 @@ import * as d3Transition from 'd3-transition';
 export class GraphComponent implements OnInit {
   nodes: Node[] = [];
   links: Edge[] = [];
+  
   // nodes: Node[] = nodes;
   // links: Edge[] = links;
 
@@ -34,6 +35,10 @@ export class GraphComponent implements OnInit {
   node2: string = "";
   relation: string = "";
   searchNodeName: string = "";
+  advancedSearchNodeName: string = "";
+  parentNodeName: string = "";
+  childNodeName: string = "";
+  insersionRelationship: string = "";
 
   DisplayGraph() {
     this.feedNgxData();
@@ -53,6 +58,20 @@ export class GraphComponent implements OnInit {
     });
   }
 
+  AdvancedInsertion() {
+    const body = {
+      parentNodeName: this.parentNodeName,
+      childNodeName: this.childNodeName,
+      insersionRelationship: this.insersionRelationship
+    };
+
+    this.http.post('http://localhost:3000/api/insertHeirarchy',body).subscribe(response => {
+      console.log(response);
+    }, error => {
+      console.log(error);
+    });
+  }
+  
   SearchNode() {
     // const body = {
     // name:this.searchNodeName
@@ -69,6 +88,37 @@ export class GraphComponent implements OnInit {
     });
 
     this.http.get('http://localhost:3000/api/filteredEdges/' + this.searchNodeName).subscribe((data: any) => {
+      console.log(data);
+      this.links = data.map((item: { source: any; target: any; label: any; }) => {
+        const response2 = {
+          source: item.source,
+          target: item.target,
+          label: item.label,
+        };
+        console.log(`filterEdgesAPI response: \n ${JSON.stringify(response2)}`);
+        return response2;
+      });
+    });
+
+    console.log(`Nodes data from API:\n${JSON.stringify(this.nodes)}\n\nEdges databackground from API:\n${JSON.stringify(this.links)}`)
+
+
+  }
+
+  AdvancedSearchNode() {
+    
+    this.http.get('http://localhost:3000/api/advancedFilteredNodes/' + this.advancedSearchNodeName).subscribe((data: any) => {
+      this.nodes = data.map((item: { id: any; label: any; }) => {
+        const response1 = {
+          id: item.id,
+          label: item.label
+        };
+        console.log(`filterNodesAPI response: \n ${JSON.stringify(response1)}`);
+        return response1;
+      });
+    });
+
+    this.http.get('http://localhost:3000/api/advancedFilteredEdges/' + this.advancedSearchNodeName).subscribe((data: any) => {
       console.log(data);
       this.links = data.map((item: { source: any; target: any; label: any; }) => {
         const response2 = {

@@ -8,13 +8,13 @@
   }
   
   .left-column {
-    flex-basis: 30%;
+    flex-basis: 15%;
     /* background-color: rgb(0, 0, 0); */
     padding: 20px;
   }
   
   .right-column {
-    flex-basis: 70%;
+    flex-basis: 85%;
     /* background-color: white; */
     /* background-image: url('https://static.vecteezy.com/system/resources/thumbnails/004/827/519/original/technology-plexus-network-background-free-video.jpg'); */
 
@@ -50,8 +50,8 @@
   } */
 
   #center {
-    text-align: center;
-    margin-right: 300px;
+    /* text-align: center; */
+    margin-left: 450px;
     
     }
 
